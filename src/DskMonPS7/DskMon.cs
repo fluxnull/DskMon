@@ -364,12 +364,19 @@ namespace DskMon
             if (string.IsNullOrEmpty(pnp)) return "";
             try
             {
-                // USBSTOR\DISK&VEN_G-DRIVE&PROD_MOBILE&REV_1019\5758...&0
                 var tail = pnp.Split('\\').LastOrDefault();
                 if (string.IsNullOrEmpty(tail)) return "";
-                int cut = tail.IndexOf('&');
-                var core = (cut > 0) ? tail.Substring(0, cut) : tail;
-                return Trim(core);
+
+                if (pnp.StartsWith("USBSTOR"))
+                {
+                    int cut = tail.IndexOf('&');
+                    if (cut > 0)
+                    {
+                        return Trim(tail.Substring(0, cut));
+                    }
+                }
+
+                return Trim(tail);
             }
             catch { return ""; }
         }
