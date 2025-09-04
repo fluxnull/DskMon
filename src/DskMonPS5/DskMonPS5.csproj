@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AssemblyName>DskMon</AssemblyName>
     <RootNamespace>DskMon</RootNamespace>
     <Platforms>AnyCPU</Platforms>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
-    <SupportedOSPlatform>windows</SupportedOSPlatform>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
@@ -15,7 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Management" Version="8.0.0" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.5" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+  </ItemGroup>
+
+  <!-- Compile-time refs for PSCustomObject; runtime resolves from Windows PowerShell -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

@@ -469,5 +469,27 @@ namespace DskMon
             if (value is string sv) o.Properties.Add(new PSNoteProperty(name, Trim(sv)));
             else o.Properties.Add(new PSNoteProperty(name, value));
         }
+
+        public static bool TestWmiConnection()
+        {
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive"))
+                {
+                    searcher.Get();
+                }
+                return true;
+            }
+            catch (ManagementException ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
     }
 }

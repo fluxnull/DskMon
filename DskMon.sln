@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DskMonPS7", "src\DskMonPS7\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DskMon.Tests", "DskMon.Tests\DskMon.Tests.csproj", "{05EEB7CA-423E-4CDE-9C2A-CCED3513DBC0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57150C76-B164-44DD-B499-3ABCB1015684}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DskMonPS5", "src\DskMonPS5\DskMonPS5.csproj", "{AF136443-B11C-4AE9-9B1C-53D3A5BBBC97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,12 @@ Global
 		{05EEB7CA-423E-4CDE-9C2A-CCED3513DBC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05EEB7CA-423E-4CDE-9C2A-CCED3513DBC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05EEB7CA-423E-4CDE-9C2A-CCED3513DBC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF136443-B11C-4AE9-9B1C-53D3A5BBBC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF136443-B11C-4AE9-9B1C-53D3A5BBBC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF136443-B11C-4AE9-9B1C-53D3A5BBBC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF136443-B11C-4AE9-9B1C-53D3A5BBBC97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AF136443-B11C-4AE9-9B1C-53D3A5BBBC97} = {57150C76-B164-44DD-B499-3ABCB1015684}
 	EndGlobalSection
 EndGlobal
