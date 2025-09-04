@@ -269,15 +269,13 @@ namespace DskMon
             try
             {
                 var idx = GetUInt(win32Disk, "Index");
-                using (var scope = new ManagementScope(@"\\.\root\microsoft\windows\storage"))
+                var scope = new ManagementScope(@"\\.\root\microsoft\windows\storage");
+                scope.Connect();
+                using (var search = new ManagementObjectSearcher(scope,
+                    new ObjectQuery($"SELECT * FROM MSFT_Disk WHERE Number = {idx}")))
                 {
-                    scope.Connect();
-                    using (var search = new ManagementObjectSearcher(scope,
-                        new ObjectQuery($"SELECT * FROM MSFT_Disk WHERE Number = {idx}")))
-                    {
-                        foreach (ManagementObject mo in search.Get())
-                            return mo;
-                    }
+                    foreach (ManagementObject mo in search.Get())
+                        return mo;
                 }
             }
             catch { }
