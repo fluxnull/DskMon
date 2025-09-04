@@ -6,7 +6,13 @@
     <Platforms>AnyCPU</Platforms>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
+    <SupportedOSPlatform>windows</SupportedOSPlatform>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\DskMon\DskMon.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Management" Version="8.0.0" />

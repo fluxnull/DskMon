@@ -269,15 +269,13 @@ namespace DskMon
             try
             {
                 var idx = GetUInt(win32Disk, "Index");
-                using (var scope = new ManagementScope(@"\\.\root\microsoft\windows\storage"))
+                var scope = new ManagementScope(@"\\.\root\microsoft\windows\storage");
+                scope.Connect();
+                using (var search = new ManagementObjectSearcher(scope,
+                    new ObjectQuery($"SELECT * FROM MSFT_Disk WHERE Number = {idx}")))
                 {
-                    scope.Connect();
-                    using (var search = new ManagementObjectSearcher(scope,
-                        new ObjectQuery($"SELECT * FROM MSFT_Disk WHERE Number = {idx}")))
-                    {
-                        foreach (ManagementObject mo in search.Get())
-                            return mo;
-                    }
+                    foreach (ManagementObject mo in search.Get())
+                        return mo;
                 }
             }
             catch { }
@@ -366,12 +364,19 @@ namespace DskMon
             if (string.IsNullOrEmpty(pnp)) return "";
             try
             {
-                // USBSTOR\DISK&VEN_G-DRIVE&PROD_MOBILE&REV_1019\5758...&0
                 var tail = pnp.Split('\\').LastOrDefault();
                 if (string.IsNullOrEmpty(tail)) return "";
-                int cut = tail.IndexOf('&');
-                var core = (cut > 0) ? tail.Substring(0, cut) : tail;
-                return Trim(core);
+
+                if (pnp.StartsWith("USBSTOR"))
+                {
+                    int cut = tail.IndexOf('&');
+                    if (cut > 0)
+                    {
+                        return Trim(tail.Substring(0, cut));
+                    }
+                }
+
+                return Trim(tail);
             }
             catch { return ""; }
         }
@@ -463,6 +468,28 @@ namespace DskMon
         {
             if (value is string sv) o.Properties.Add(new PSNoteProperty(name, Trim(sv)));
             else o.Properties.Add(new PSNoteProperty(name, value));
+        }
+
+        public static bool TestWmiConnection()
+        {
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive"))
+                {
+                    searcher.Get();
+                }
+                return true;
+            }
+            catch (ManagementException ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
         }
     }
 }
