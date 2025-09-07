@@ -263,7 +263,7 @@ namespace DskMon
             try
             {
                 var idx = GetUInt(win32Disk, "Index");
-                using (var scope = new ManagementScope(@"\\.\root\microsoft\windows\storage"))
+                var scope = new ManagementScope(@"\\.\root\microsoft\windows\storage");
                 {
                     scope.Connect();
                     using (var search = new ManagementObjectSearcher(scope,
